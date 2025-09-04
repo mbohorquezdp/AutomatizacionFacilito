@@ -1,0 +1,32 @@
+# PRUEBA DE ACCESO CON CREDENCIALES A LA WEB
+
+from time import sleep
+import pytest
+from tests.web_pytest.pages.login_page_ui import LoginPage
+
+from dotenv import load_dotenv
+import os
+
+# IMPORTACIONES NECESARIAS PARA ESPERAS EXPLÍCITAS
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+correo_cliente_antiguo = os.getenv("correo_ant")
+password_cliente_antiguo = os.getenv("password_ant")
+
+@pytest.mark.ingresoweb
+def test_ingreso_web(driver):
+    login = LoginPage(driver)
+    login.load()
+    login.login_as_user(correo_cliente_antiguo, password_cliente_antiguo)
+    sleep(2)
+
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//button[text()='Go to Home']")))
+
+
+
+
+
+
+

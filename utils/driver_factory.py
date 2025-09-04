@@ -17,3 +17,4 @@ def create_driver(headless: bool = False):
 
     driver.implicitly_wait(5)
     return driver
+

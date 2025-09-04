@@ -1,6 +1,6 @@
 from time import sleep
 import pytest
-from Trabajos.Utils.driver_factory_p import create_driver
+from utils.driver_factory import create_driver
 
 def pytest_addoption(parser):
     parser.addoption(
@@ -10,8 +10,9 @@ def pytest_addoption(parser):
     )
 
 @pytest.fixture
-def headless(request):
+def driver(request):
     headless = request.config.getoption("--headless")
     driver = create_driver(headless=headless)
     yield driver
+    sleep(3)
     driver.quit()
