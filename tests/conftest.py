@@ -13,6 +13,7 @@ def pytest_addoption(parser):
 def driver(request):
     headless = request.config.getoption("--headless")
     driver = create_driver(headless=headless)
+    driver.maximize_window()
     yield driver
     sleep(3)
     driver.quit()

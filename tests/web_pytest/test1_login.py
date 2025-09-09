@@ -22,9 +22,9 @@ password_cliente_antiguo = os.getenv("password_ant")
 def test_ingreso_web(driver):
     login = LoginPage(driver)
     login.load()
-    sleep(5)
+    sleep(2)
     login.login_as_user(correo_cliente_antiguo, password_cliente_antiguo)
-    sleep(5)
+    sleep(2)
 
     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//button[text()='Go to Home']")))
 
