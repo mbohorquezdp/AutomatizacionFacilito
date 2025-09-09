@@ -26,4 +26,4 @@ def test_detalle_prod(driver):
 
     texto_obtenido = page.get_texto()
     assert texto_obtenido == "High-performance laptop for work and gaming", "El texto no coincide con lo esperado"
-    sleep(1)
+    sleep(2)
