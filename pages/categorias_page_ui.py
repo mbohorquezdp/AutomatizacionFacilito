@@ -9,18 +9,17 @@ class CategoryPage:
     def __init__(self, driver):
         self.driver = driver
         self.wait = WebDriverWait(driver, 10)
-        self.hover_field = (By.XPATH, "//*[@id='radix-«R2bb»-trigger-radix-«Rebb»']")
         self.category_option = (By.XPATH, "//a[text()='Electronics']")
 
-    def hover_over_field(self):
-        element = self.wait.until(EC.visibility_of_element_located(self.hover_field))
-        ActionChains(self.driver).move_to_element(element).perform()
+    #def hover_over_field(self):
+    #    element = self.wait.until(EC.visibility_of_element_located(self.hover_field))
+    #    ActionChains(self.driver).move_to_element(element).perform()
 
     #    time.sleep(2)
 
-    #def click_category_option(self):
-    #    option = self.wait.until(EC.element_to_be_clickable(self.category_option))
-    #    option.click()
+    def click_category_option(self):
+        option = self.wait.until(EC.element_to_be_clickable(self.category_option))
+        option.click()
 
 
     def click_category_option(self):

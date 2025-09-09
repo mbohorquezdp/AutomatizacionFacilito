@@ -3,7 +3,6 @@
 from time import sleep
 import pytest
 from pages.login_page_ui import LoginPage
-#from tests.web_pytest.pages.login_page_ui import LoginPage
 # dovent es la biblioteca que nos permite trabajar con variables de entorno, del archivo .env
 from dotenv import load_dotenv
 import os
