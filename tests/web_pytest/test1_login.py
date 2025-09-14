@@ -19,6 +19,7 @@ correo_cliente_antiguo = os.getenv("correo_ant")
 password_cliente_antiguo = os.getenv("password_ant")
 
 @pytest.mark.ingresoweb
+# primer ts de acceso con credenciales
 def test_ingreso_web(driver):
     login = LoginPage(driver)
     login.load()
