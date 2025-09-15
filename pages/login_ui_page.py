@@ -1,4 +1,4 @@
-from .base_page_ui import BasePage
+from .base_ui_page import BasePage
 from selenium.webdriver.common.by import By
 
 
