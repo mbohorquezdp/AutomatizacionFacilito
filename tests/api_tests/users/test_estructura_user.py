@@ -1,11 +1,12 @@
 from jsonschema import validate
 
-#Validar schema usuario
-#email string email
-#password string>= 6 characters
-#full_name string
-#role Expand all string
+#Pruebas Positivas : Creación/Validación de recursos adecuadamente
+#Pruebas CONTRATO: Estructura
+#Pruebas STATUS CODE 201,422
+#Pruebas TIPOS DE DATOS
+#Pruebas Entradas validas y extremas
 
+#Pruebas CONTRATO: Estructura
 user_schema = {
     "type": "object",
     "required": ["id","email", "full_name", "role"],
@@ -22,5 +23,6 @@ def test_create_user_schema(user):
     validate(instance=user, schema=user_schema)
 
 
-def test_usuario_tiene_email(user):
-    assert "email" in user
+
+
+
