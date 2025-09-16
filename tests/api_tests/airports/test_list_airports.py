@@ -4,7 +4,6 @@ from utils.api_helpers import api_request
 
 
 def test_gel_all_airports(airport,auth_headers):
-    #r = requests.get(BASE_URL_API + AIRPORT, headers=auth_headers)
     r = api_request("get", BASE_URL_API + AIRPORT, headers=auth_headers)
 
     lista = r.text

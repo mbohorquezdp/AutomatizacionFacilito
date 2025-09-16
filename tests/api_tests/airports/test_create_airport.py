@@ -1,4 +1,3 @@
-
 from jsonschema import validate
 
 #Validar creación de Airport

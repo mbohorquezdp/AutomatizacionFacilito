@@ -2,7 +2,6 @@ import random
 import string
 
 import pytest
-import requests
 import faker
 from dotenv import load_dotenv
 
@@ -26,9 +25,8 @@ def airport(auth_headers):
     r.raise_for_status()
     airport_response = r.json()
     yield airport_response
-    r = api_request("delete", BASE_URL_API + AIRPORT + '{airport_response["iata_code"]}', headers=auth_headers
-                    )
-    #requests.delete(BASE_URL_API + AIRPORT + '{airport_response["iata_code"]}',headers=auth_headers,timeout=5)
+    r = api_request("delete", BASE_URL_API + AIRPORT + '{airport_response["iata_code"]}', headers=auth_headers   )
+
 
 
 
