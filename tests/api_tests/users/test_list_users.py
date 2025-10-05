@@ -1,24 +1,25 @@
-import requests
-from config.settings import BASE_URL_API,USERS
-from utils.api_helpers import api_request
+import pytest
+from config.settings import USERS  # o from config.settings import USERS si está ahí
+from utils.api_helpers import ApiClient
 
 
-def test_list_users(auth_headers,limit=2):
-    skip=0
-    results = []
+@pytest.mark.parametrize(
+    "limit",
+    [1, 3, 10],
+    ids=lambda val: f"Limit={val}"
+)
 
-    #r = requests.get(f"{BASE_URL_API}{USERS}",params={"skip":skip,"limit":limit},headers=auth_headers,timeout=10)
-    r = api_request(
-        "GET",
-        BASE_URL_API + USERS,
-        params={"skip": skip, "limit": limit},
-        headers=auth_headers,
-        timeout=10,  # opcional
-    )
-    lista = r.text
-    assert r.status_code == 200
-    assert r.text != ""
 
+def test_list_users(api_client: ApiClient, admin_token: str, limit: int):
+    skip = 0
+    response = api_client.get(USERS, params={"skip": skip, "limit": limit})
+
+    assert response.status_code == 200, f"Esperado 200, recibido {response.status_code}: {response.text}"
+
+    data = response.json()
+    assert data, "La respuesta de la API está vacía."
+
+    print(f"\n[Limit={limit}] Se listaron {len(data) if isinstance(data, list) else 'N/A'} usuarios.")
 
 
 

@@ -1,25 +1,51 @@
-#Pruebas STATUS CODE 201,422
-#Pruebas TIPOS DE DATOS
-#Pruebas Entradas validas y extremas
+# tests/api_tests/users/test_created_user.py
+import uuid
+import pytest
+import config.settings as config
+from utils.api_helpers import ApiClient,VectorUtils
+from utils.data_loader import USUARIOS
 
+users_utils = VectorUtils(allowed_fields={"email", "password", "full_name", "role"})
 
-#Pruebas Positivas : Creación/Validación de recursos adecuadamente
-def test_create_user_completo(user):
-    body = user
+CASE_IDS = [c.get("id", f"case-{i}") for i, c in enumerate(USUARIOS)]
 
-    email = body.get("email")
-    assert isinstance(email, str), "email debe ser string"
-    assert email.strip(), "email vacío o solo espacios"
+def _unique_email(prefix="ok"):
+    return f"{prefix}_{uuid.uuid4().hex[:8]}@test.com"
 
-    full_name = body.get("full_name")
-    assert isinstance(full_name, str), "full_name debe ser string"
-    assert full_name.strip(), "full_name vacío o solo espacios"
+class TestCreateUsers:
+    @pytest.mark.parametrize("case", USUARIOS, ids=CASE_IDS)
+    def test_create_users_from_vector(self, api_client: ApiClient, admin_token: str, case: dict):
+        case_id = case.get("id", "sin-id")
 
-    role = body.get("role")
-    assert isinstance(role, str), "role debe ser string"
-    assert role.strip(), "role vacío o solo espacios"
+        # 1) Construir payload desde el vector, respetando solo campos permitidos
+        payload = users_utils.build_payload(case)
 
-    uid = body.get("id") or body.get("_id")
-    assert uid not in (None, ""), f"Respuesta sin id: {body}"
+        # 2) Normalizar expectativas del vector (acepta tus claves “Resultado esperado 201”, etc.)
+        expected, expected_any = users_utils.normalize_expected(case)
 
+        # 3) Ejecutar POST
+        resp = api_client.post(config.USERS, json=payload)
 
+        # 4) Asserts de estado
+        if expected is not None:
+            assert resp.status_code == expected, (
+                f"[{case_id}] Esperado {expected}, recibido {resp.status_code}: {resp.text}"
+            )
+        else:
+            assert expected_any, f"[{case_id}] No se definió expected_status ni expected_status_any"
+            assert resp.status_code in expected_any, (
+                f"[{case_id}] Esperaba {expected_any}, obtuve {resp.status_code}: {resp.text}"
+            )
+
+        # 5) Si fue creado (201): validar body mínimo y cleanup opcional
+        if resp.status_code == 201:
+            body = resp.json()
+            assert body.get("email") == payload["email"], f"[{case_id}] email distinto al enviado"
+            assert "id" in body and body["id"], f"[{case_id}] Respuesta sin 'id': {body}"
+
+            if case.get("cleanup"):
+                user_id = body["id"]
+                d = api_client.delete(f"{config.USERS}/{user_id}")
+                assert d.status_code == 204, (
+                    f"[{case_id}] DELETE esperaba 204, recibido {d.status_code}: {d.text}"
+                )

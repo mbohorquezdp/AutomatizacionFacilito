@@ -28,7 +28,7 @@ def put_airport(uid: str , auth_headers) -> None:
 
 # Caso Positivo 200
 def test_put_un_usuario(auth_headers):
-    put_airport("DXO", auth_headers)  # usa un id real
+    put_airport("EBD", auth_headers)  # usa un id real, debe existir
 
 
 # Caso negativo: payload inválido → espera 422
