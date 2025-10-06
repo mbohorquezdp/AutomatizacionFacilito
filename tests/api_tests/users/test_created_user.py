@@ -24,6 +24,7 @@ class TestCreateUsers:
         expected, expected_any = users_utils.normalize_expected(case)
 
         # 3) Ejecutar POST
+        api_client = api_client if case.get("auth", True) else ApiClient()
         resp = api_client.post(config.USERS, json=payload)
 
         # 4) Asserts de estado

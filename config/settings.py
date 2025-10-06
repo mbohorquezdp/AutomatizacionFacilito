@@ -23,3 +23,4 @@ AUTH_LOGIN = "auth/login"      # si tu API exige slash final, probaremos fallbac
 USERS      = "users"
 USERS_ME   = "users/me"
 AIRPORTS   = "airports"
+AIRCRAFTS = "aircrafts"

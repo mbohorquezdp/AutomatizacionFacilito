@@ -59,5 +59,63 @@ AEROPUERTOS = [
     },
 ]
 
+AVIONES = [
+    #CASOS POSITIVOS (201) ---
+    {
+        "id": "ok-basico 201",
+        "tail_number": "TN001",
+        "model": "Boeing 737",
+        "capacity": 150,
+        "expected_status": 201,
+        "auth": True,
+        "cleanup": True,  # para borrarlo si lo deseas luego
+    },
+    {
+        "id": "ok-minimo 201",
+        "tail_number": "TN002",
+        "model": "Airbus A320",
+        "capacity": 1,
+        "expected_status": 201,
+        "auth": True,
+        "cleanup": True,  # para borrarlo si lo deseas luego
+    },
+
+    # CASO NO AUTENTICADO (401) ---
+    {
+        "id": "unauthorized-401",
+        "tail_number": "TN003",
+        "model": "Cessna 172",
+        "capacity": 4,
+        "expected_status": 401,
+        "auth": False,  # sin token → 401
+    },
+
+    #CASOS NEGATIVOS (422) ---
+    {
+        "id": "invalid-tail_number 422",
+        "tail_number": "",  # vacío
+        "model": "Boeing 747",
+        "capacity": 300,
+        "expected_status": 422,
+        "auth": True,
+    },
+    {
+        "id": "invalid-model-null 422",
+        "tail_number": "TN005",
+        "model": None,  # nulo
+        "capacity": 180,
+        "expected_status": 422,
+        "auth": True,
+    },
+    {
+        "id": "invalid-capacity-string 422",
+        "tail_number": "TN006",
+        "model": "Airbus A350",
+        "capacity": "cien",  # tipo incorrecto
+        "expected_status": 422,
+        "auth": True,
+    },
+
+]
 
 
