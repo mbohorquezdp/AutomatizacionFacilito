@@ -27,9 +27,9 @@ def _warn_if_tolerated(name: str, got: int, preferred: tuple[int, ...], tolerate
 # Se creo codigo tolerado porque al enviarle codigo invalido para borrar igual lo pasaba como correcto
 CASES = [
     # name         auth   id_source  preferred      tolerated
-    ("ok-204",     True,  "create",  (204,),        ()),
-    ("unauth-401", False, "nocrea",  (401,),        ()),
-    ("invalid-id", True,  "invalid", (422,204),         (204,)),
+    ("ok-Delete 204",     True,  "create",  (204,),        ()),
+    ("NO AUTORIZADO 401", False, "nocrea",  (401,),        ()),
+    ("ID invalid-id 422/204", True,  "invalid", (422,204),         (204,)),
 ]
 IDS = [name for name, *_ in CASES]
 
@@ -59,9 +59,9 @@ def test_delete_airports_validations(api_client: ApiClient, admin_token: str,
         assert False, f"[{name}] Esperado {preferred} (tolerado {tolerated}), recibido {status}: {resp.text}"
 
     # logs útiles
-    if name == "ok-204" and status == 204:
+    if name == "ok-Delete 204" and status == 204:
         print(f"[{name}] Borrado OK → status {status}")
-    elif name == "unauth-401" and status == 401:
+    elif name == "unauth-NO AUTORIZADO 401" and status == 401:
         print(f"[{name}] DELETE sin token → 401")
     elif name == "invalid-id" and status in (204, 404, 400):
         print(f"[{name}] ID inválido → status {status} ")

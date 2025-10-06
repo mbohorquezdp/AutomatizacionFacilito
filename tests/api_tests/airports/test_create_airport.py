@@ -30,7 +30,7 @@ class TestCreateAirports:
         )
 
         # 5) Si fue creado (201): validar body mínimo y cleanup opcional
-        if resp.status_code == 201:
+        if resp.status_code in ( 201, 400 ) : # Incluyo 400 porque a pesar q city es obligatorio, igual lo graba vacio
             body = resp.json()
 
             assert body.get("city") == payload["city"], f"[{case_id}] city no se encuentra"

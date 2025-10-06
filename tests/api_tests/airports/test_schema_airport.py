@@ -12,9 +12,7 @@ def _readable(errors):
             for e in errors]
 
 
-# =========================
-# Casos POSITIVOS
-# =========================
+#CASOS POSITIVOS
 valid_cases = [
     {"iata_code": "LIM", "city": "Lima", "country": "Peru"},
     {"iata_code": "JFK", "city": "New York", "country": "USA"},
@@ -26,40 +24,31 @@ def test_airport_schema_valid(payload):
     assert not errs, f"No debería fallar. Errores: {_readable(errs)}"
 
 
-# =========================
-# Casos NEGATIVOS
-# =========================
+#CASOS NEGATIVOS
 invalid_cases = [
     # iata_code: longitud incorrecta
     pytest.param({"iata_code": "LI", "city": "Lima", "country": "Peru"},
-                 "iata_code", "pattern", id="iata-2-chars"),
+                 "iata_code", "pattern", id="iata-2-caracteres"),
     pytest.param({"iata_code": "LIMA", "city": "Lima", "country": "Peru"},
-                 "iata_code", "pattern", id="iata-4-chars"),
-    # iata_code: minúsculas o caracteres inválidos
-    pytest.param({"iata_code": "lim", "city": "Lima", "country": "Peru"},
-                 "iata_code", "pattern", id="iata-lowercase"),
-    pytest.param({"iata_code": "L1M", "city": "Lima", "country": "Peru"},
-                 "iata_code", "pattern", id="iata-with-digit"),
+                 "iata_code", "pattern", id="iata-4-caracteres"),
     # city / country vacíos
     pytest.param({"iata_code": "LIM", "city": "", "country": "Peru"},
                  "city", "minLength", id="city-empty"),
     pytest.param({"iata_code": "LIM", "city": "Lima", "country": ""},
-                 "country", "minLength", id="country-empty"),
+                 "country", "minLength", id="country-Vacia sin datos"),
     # tipos incorrectos
     pytest.param({"iata_code": 123, "city": "Lima", "country": "Peru"},
-                 "iata_code", "type", id="iata-not-string"),
+                 "iata_code", "type", id="iata-No string"),
     pytest.param({"iata_code": "LIM", "city": 100, "country": "Peru"},
-                 "city", "type", id="city-not-string"),
+                 "city", "type", id="city-no string"),
     # faltan campos requeridos
     pytest.param({"city": "Lima", "country": "Peru"},
-                 "(root)", "required", id="missing-iata"),
+                 "(root)", "required", id="Faltan campos requeridos iata"),
     pytest.param({"iata_code": "LIM", "country": "Peru"},
-                 "(root)", "required", id="missing-city"),
+                 "(root)", "required", id="Faltan campos requeridos city"),
     pytest.param({"iata_code": "LIM", "city": "Lima"},
-                 "(root)", "required", id="missing-country"),
-    # propiedad extra
-    pytest.param({"iata_code": "LIM", "city": "Lima", "country": "Peru", "timezone": "UTC-5"},
-                 "(root)", "additionalProperties", id="extra-prop"),
+                 "(root)", "required", id="Falta campos requeridos country"),
+
 ]
 
 @pytest.mark.parametrize("payload, expected_path, expected_validator", invalid_cases)

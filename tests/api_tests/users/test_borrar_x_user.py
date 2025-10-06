@@ -5,7 +5,7 @@ from config.settings import USERS
 
 # Lista de IDs a eliminar — reemplaza por tus IDs reales
 USER_IDS = [
-    "usr-998e1738",
+    "usr-0837c942",
     "usr-30166849",
 
 ]
