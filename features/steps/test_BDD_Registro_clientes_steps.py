@@ -10,7 +10,7 @@ from pages.shophub_commerce.registro_web import RegistroWeb
 
 @given('usuario ingresa sus datos al formulario de la inscripción')
 def step_impl(context):
-    # Crear el driver se ejecutara dese $proyecto/environment.py
+    # Crear el driver se ejecutara desde $proyecto/environment.py
     context.registro_web = RegistroWeb(context.driver)
     context.registro_web.load()
 
