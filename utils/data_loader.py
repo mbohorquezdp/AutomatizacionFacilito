@@ -119,3 +119,39 @@ AVIONES = [
 ]
 
 
+VUELOS = [
+    {
+        "id": "ok-201",
+        "auth": True,
+        "origin": "LMN",
+        "destination": "EOU",
+        "departure_time": "2025-10-06T10:00:00Z",
+        "arrival_time": "2025-10-06T12:00:00Z",
+        "base_price": 150.0,
+        "aircraft_id": "acf-b66848ae",   # Debe existir
+        "expected_status": 201,
+        "cleanup": True
+    },
+    {
+        "id": "unauth-401",
+        "auth": False,
+        "origin": "LMN",
+        "destination": "EOU",
+        "departure_time": "2025-10-06T10:00:00Z",
+        "arrival_time": "2025-10-06T12:00:00Z",
+        "base_price": 150.0,
+        "aircraft_id": "acf-f8da3c9d",
+        "expected_status": 401
+    },
+    {
+        "id": "invalid-422",
+        "auth": True,
+        "origin": "",
+        "destination": "EOU",
+        "departure_time": "fecha_mala",
+        "arrival_time": "2025-13-99T99:99:99Z",
+        "base_price": -5,
+        "aircraft_id": "",
+        "expected_status": 422
+    },
+]
