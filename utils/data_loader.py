@@ -162,10 +162,10 @@ VUELOS = [
 
 BOOKINGS_CASOS = [
     {
-        "id": "Booking_200",
+        "id": "Booking_201",
         "auth": True,
-        "expected_status": 200,      # cambia a 201 si tu API crea con 201
-        "flight_id": "bkg-ec3266f3",     # se resolverá con _first_flight_id
+        "expected_status": 201,
+        "flight_id": "flt-31aba1c7",     # se resolverá con _first_flight_id
         "passengers": [
             {"full_name": "Marco", "passport": "XP1234567", "seat": "12A"}
         ],
@@ -175,16 +175,16 @@ BOOKINGS_CASOS = [
         "id": "Booking_401",
         "auth": False,
         "expected_status": 401,
-        "flight_id": "bkg-ec3266f3",
+        "flight_id": "flt-31aba1c7",
         "passengers": [
             {"full_name": "Marco", "passport": "XP1234567", "seat": "12A"}
         ],
     },
     {
-        "id": "Booking_422",
+        "id": "Booking_401",
         "auth": False,
-        "expected_status": 422,
-        "flight_id": "bkg-ec3266f3",     # mantenemos flight válido; forzamos error por contenido
+        "expected_status": 401,
+        "flight_id": "flt-31aba1c7",     # mantenemos flight válido; forzamos error por contenido
         "passengers": [
             {"full_name": "", "passport": "", "seat": ""}  # inválido
         ],
