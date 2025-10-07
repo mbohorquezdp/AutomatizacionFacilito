@@ -2,13 +2,11 @@ import pytest
 from config.settings import AIRPORTS
 from utils.api_helpers import ApiClient
 
-
 @pytest.mark.parametrize(
     "limit",
     [1, 3, 10],
     ids=lambda val: f"Limit={val}"
 )
-
 
 def test_list_airports(api_client: ApiClient, admin_token: str, limit: int):
     skip = 0

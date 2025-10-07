@@ -23,8 +23,7 @@ def _warn_if_tolerated(name: str, got: int, preferred: tuple[int, ...], tolerate
     if got in tolerated_only:
         print(f"[{name}] Aviso: status {got} tolerado (backend inconsistente). Preferido: {preferred}")
 
-# ---------- Casos de prueba  ----------
-# Se creo codigo tolerado porque al enviarle codigo invalido para borrar igual lo pasaba como correcto
+#CASOS DE PRUEA POSITIVO Y NEGATIVOS
 CASES = [
     # name         auth   id_source  preferred      tolerated
     ("ok-Delete 204",     True,  "create",  (204,),        ()),

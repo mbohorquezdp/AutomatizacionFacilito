@@ -1,4 +1,3 @@
-# tests/api_tests/airports/test_update_airport.py
 import pytest
 from utils.api_helpers import ApiClient
 from config.settings import AIRPORTS

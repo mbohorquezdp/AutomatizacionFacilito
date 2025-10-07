@@ -1,4 +1,4 @@
-# tests/api_tests/flights/test_create_flight.py
+
 import pytest
 import config.settings as config
 from utils.api_helpers import ApiClient, VectorUtils
@@ -20,8 +20,7 @@ class TestCreateFlights:
         # 1) Construir payload desde el vector, solo con los campos permitidos
         payload = flights_utils.build_payload(case)
 
-        # 2) Normalizar expectativas del vector (soporta "expected_status", "expected_status_any"
-        #    o "Resultado esperado XXX": XXX)
+        # 2) Normalizar expectativas del vector
         expected, expected_any = flights_utils.normalize_expected(case)
 
         # 3) Elegir cliente (con/sin auth) según el caso
@@ -45,7 +44,7 @@ class TestCreateFlights:
         if resp.status_code in (201, 200):
             body = resp.json()
 
-            # Validaciones mínimas según el contrato
+            # Validaciones
             assert body.get("origin") == payload.get("origin"), f"[{case_id}] 'origin' inconsistente"
             assert body.get("destination") == payload.get("destination"), f"[{case_id}] 'destination' inconsistente"
             assert "aircraft_id" in body and body["aircraft_id"], f"[{case_id}] 'aircraft_id' vacío"
@@ -55,7 +54,6 @@ class TestCreateFlights:
             # Cleanup opcional
             if case.get("cleanup"):
                 d = client.delete(f"{config.FLIGHTS}/{flight_id}")
-                # Muchos backends devuelven 204 al borrar; acepta 200 por flexibilidad
                 assert d.status_code in (204, 200), (
                     f"[{case_id}] DELETE esperaba 204/200, recibido {d.status_code}: {d.text}"
                 )

@@ -48,9 +48,7 @@ def _delete_if_possible(api_client: ApiClient, code: str):
     except Exception as e:
         print(f"[cleanup] Excepción al borrar aeropuerto {code}: {e}")
 
-# =========================
-# Casos parametrizados
-# =========================
+#CASOS VALIDOS Y NO VALIDOS
 # name,        auth,   id_source,   payload_kind,        expected_statuses, tolerated
 CASES = [
     ("ok-ACTUALIZADO 200",      True,  "create", "valido",   (200, 204), ()),

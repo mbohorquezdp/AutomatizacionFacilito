@@ -55,7 +55,7 @@ invalid_cases = [
 def test_airport_schema_invalid(payload, expected_path, expected_validator):
     errs = _errors(payload)
     assert errs, "Se esperaban errores de validación."
-    # Buscar al menos un error que coincida con path y validador esperados
+
     def path_of(e):
         return ".".join(map(str, e.path)) or "(root)"
     matched = any(path_of(e) == expected_path and e.validator == expected_validator for e in errs)
