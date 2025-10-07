@@ -10,7 +10,6 @@ from utils.api_helpers import ApiClient
 def test_me(api_client: ApiClient, admin_token: str, auth: bool):
     #Si auth=True: debe devolver 200 y datos del usuario.
     #Si auth=False: debe devolver 401 Unauthorized.
-    #Elegir el cliente según la condición
     client = api_client if auth else ApiClient()
 
     response = client.get(USERS_ME)

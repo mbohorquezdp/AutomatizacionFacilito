@@ -6,7 +6,7 @@ from config.settings import USERS
 
 fake = faker.Faker()
 
-#Data Valida 200
+#Data Válida 200
 def payload_valido() -> dict:
     return {
         "email": f"upd_{uuid.uuid4().hex[:8]}@test.com",
@@ -23,7 +23,7 @@ def payload_invalido_422() -> dict:
         "role": "passenger",
     }
 
-# --------- helpers ----------
+# crea usuario temporal para tener data
 def _create_user(api_client: ApiClient) -> dict:
     payload = {
         "email": f"tmp_{uuid.uuid4().hex[:10]}@test.com",
@@ -46,7 +46,7 @@ def _delete_if_exists(api_client: ApiClient, user_id: str):
         pass  # no dejes caer la suite por el cleanup
 
 # --------- casos ----------
-# name,       id_source,      builder,              expected_any
+# name,       id_source,      construye payload,              expected_any
 CASES = [
     ("ok-auth",     "create",     payload_valido,       (200, 204)),
     ("not-found-404","nonexist",  payload_valido,       (404,)),      # ID inexistente

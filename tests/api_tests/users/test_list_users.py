@@ -1,5 +1,5 @@
 import pytest
-from config.settings import USERS  # o from config.settings import USERS si está ahí
+from config.settings import USERS
 from utils.api_helpers import ApiClient
 
 

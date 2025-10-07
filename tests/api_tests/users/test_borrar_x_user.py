@@ -1,15 +1,13 @@
-# tests/api_tests/users/test_delete_multiple_users.py
+
 import pytest
 from utils.api_helpers import ApiClient
 from config.settings import USERS
 
-# Lista de IDs a eliminar — reemplaza por tus IDs reales
+# Lista de IDs a eliminar
 USER_IDS = [
     "usr-0837c942",
     "usr-30166849",
-
 ]
-
 
 @pytest.mark.parametrize("user_id", USER_IDS, ids=lambda uid: f"DELETE-{uid}")
 def test_delete_multiple_users(api_client: ApiClient, admin_token: str, user_id: str):

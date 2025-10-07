@@ -5,7 +5,7 @@ from jsonschema import Draft7Validator, FormatChecker  # <-- añade FormatChecke
 validator = Draft7Validator(user_schema)
 
 
-# importante: activar format_checker para validar emails
+# activar format_checker para validar emails
 validator = Draft7Validator(user_schema, format_checker=FormatChecker())
 
 def _errors(instance: dict):
@@ -15,7 +15,7 @@ def _readable(errors):
     return [f"({'.'.join(map(str, e.path)) or '(root)'}) {e.message} [validator={e.validator}]"
             for e in errors]
 
-# POSITIVOS
+# CASOS POSITIVOS
 valid_cases = [
     {"id": "usr-001", "email": "juan@example.com", "full_name": "Juan Pérez", "role": "admin"},
     {"id": "usr-002", "email": "ana@example.com", "full_name": "Ana García", "role": "passenger", "phone": "999999999"},
@@ -26,7 +26,7 @@ def test_user_schema_valid(payload):
     errs = _errors(payload)
     assert not errs, f"No debería fallar. Errores: {_readable(errs)}"
 
-# NEGATIVOS
+# CASOS NEGATIVOS
 invalid_cases = [
     pytest.param({"id": 123, "email": "juan@example.com", "full_name": "Juan Pérez", "role": "admin"},
                  "id", "type", id="id-not-string"),

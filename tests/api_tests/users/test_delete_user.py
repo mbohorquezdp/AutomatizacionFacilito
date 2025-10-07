@@ -3,7 +3,7 @@ import pytest
 from utils.api_helpers import ApiClient
 from config.settings import USERS
 
-# ---------- Helpers ----------
+#Para q no duplique el email
 def _unique_email(prefix: str = "deluser") -> str:
     return f"{prefix}_{uuid.uuid4().hex[:10]}@test.com"
 

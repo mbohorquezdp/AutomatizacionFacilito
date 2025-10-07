@@ -1,4 +1,3 @@
-# tests/api_tests/users/test_created_user.py
 import uuid
 import pytest
 import config.settings as config
@@ -20,7 +19,7 @@ class TestCreateUsers:
         # 1) Construir payload desde el vector, respetando solo campos permitidos
         payload = users_utils.build_payload(case)
 
-        # 2) Normalizar expectativas del vector (acepta tus claves “Resultado esperado 201”, etc.)
+        # 2) Normalizar expectativas del vector
         expected, expected_any = users_utils.normalize_expected(case)
 
         # 3) Ejecutar POST
