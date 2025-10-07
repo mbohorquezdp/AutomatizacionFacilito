@@ -1,6 +1,9 @@
 # Data para crear USERS
 import uuid
 
+from config.settings import BOOKINGS
+
+
 def _unique_email(prefix="ok"):
     return f"{prefix}_{uuid.uuid4().hex[:8]}@test.com"
 
@@ -121,19 +124,19 @@ AVIONES = [
 
 VUELOS = [
     {
-        "id": "ok-201",
+        "id": "ok-Caso positivo 201",
         "auth": True,
         "origin": "LMN",
         "destination": "EOU",
         "departure_time": "2025-10-06T10:00:00Z",
         "arrival_time": "2025-10-06T12:00:00Z",
         "base_price": 150.0,
-        "aircraft_id": "acf-b66848ae",   # Debe existir
+        "aircraft_id": "acf-5ef76b7a",   # Debe existir
         "expected_status": 201,
         "cleanup": True
     },
     {
-        "id": "unauth-401",
+        "id": "unauth-No autorizado 401",
         "auth": False,
         "origin": "LMN",
         "destination": "EOU",
@@ -144,7 +147,7 @@ VUELOS = [
         "expected_status": 401
     },
     {
-        "id": "invalid-422",
+        "id": "Data invalida-422",
         "auth": True,
         "origin": "",
         "destination": "EOU",
@@ -155,3 +158,38 @@ VUELOS = [
         "expected_status": 422
     },
 ]
+
+
+BOOKINGS_CASOS = [
+    {
+        "id": "Booking_200",
+        "auth": True,
+        "expected_status": 200,      # cambia a 201 si tu API crea con 201
+        "flight_id": "bkg-ec3266f3",     # se resolverá con _first_flight_id
+        "passengers": [
+            {"full_name": "Marco", "passport": "XP1234567", "seat": "12A"}
+        ],
+        "cleanup": True
+    },
+    {
+        "id": "Booking_401",
+        "auth": False,
+        "expected_status": 401,
+        "flight_id": "bkg-ec3266f3",
+        "passengers": [
+            {"full_name": "Marco", "passport": "XP1234567", "seat": "12A"}
+        ],
+    },
+    {
+        "id": "Booking_422",
+        "auth": False,
+        "expected_status": 422,
+        "flight_id": "bkg-ec3266f3",     # mantenemos flight válido; forzamos error por contenido
+        "passengers": [
+            {"full_name": "", "passport": "", "seat": ""}  # inválido
+        ],
+    },
+]
+
+
+

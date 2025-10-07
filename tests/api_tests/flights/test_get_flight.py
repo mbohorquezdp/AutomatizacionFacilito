@@ -5,9 +5,9 @@ from config.settings import FLIGHTS
 # --- Escenarios de prueba ---
 CASES = [
     # name,                     auth,   flight_id,           expected,  tolerated
-    ("ok-caso positivo 200",     True,  "acf-b66848ae",     (200,),    (404,)), ## SI YA NO EXISTE SE CAERA, POR ELLO LE PUSE 404
-    ("vuelo inexistente 422",    True,  "flg-noexiste123",    (422,),    (404,)),
-    ("unauth-401",               False, "acf-b66848ae",     (401,),    (404,)),
+    ("ok-caso positivo 200",    True,  "acf-b66848ae",  (200,), (404,)), ## SI YA NO EXISTE SE CAERA, POR ELLO LE PUSE 404
+    ("vuelo inexistente 422",   True,  "flg-noexiste123", (422,), (404,)),
+    ("unauth-401",              False, "acf-b66848ae",  (401,),  (404,)),
 ]
 
 IDS = [name for name, *_ in CASES]

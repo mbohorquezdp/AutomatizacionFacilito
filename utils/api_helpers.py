@@ -4,7 +4,7 @@ from urllib.parse import urlparse
 import config.settings as config
 
 class ApiClient:
-    RETRIES = 7
+    RETRIES = 3
     BACKOFF = 0.9
     TIMEOUT = (5, 15)
 

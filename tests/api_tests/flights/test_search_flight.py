@@ -12,7 +12,7 @@ def _safe_json(resp):
 
 # name,   auth,   params,                  expected,      tolerated
 CASES = [
-    ("ok-Seracj 200",     True,  {"skip": 0,  "limit": 10},  (200,),       (500,)),   # si hoy cae 500, lo toleramos
+    ("ok-Serach 200",     True,  {"skip": 0,  "limit": 10},  (200,),       (500,)),   # si hoy cae 500, lo toleramos
     ("Validar Limit-422",   True,  {"skip": 0,  "limit": -5},  (422,),       (500,)),
 ]
 
