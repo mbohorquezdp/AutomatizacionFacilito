@@ -1,8 +1,8 @@
-
 import pytest
 from utils.api_helpers import ApiClient
 from config.settings import AIRCRAFTS
 
+#CASOS POSITIVOS Y NEGATIVOS
 CASES = [
     ("ok-caso positivo 200", True,  "acf-f8da3c9d", (200,),    ()),
     ("Avion inexistente 422", True, "acf-no-existe", (404,),   ()),

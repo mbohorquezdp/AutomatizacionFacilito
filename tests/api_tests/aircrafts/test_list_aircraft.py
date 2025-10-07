@@ -1,4 +1,3 @@
-# tests/api_tests/aircrafts/test_list_aircrafts.py
 import pytest
 import config.settings as config
 from utils.api_helpers import ApiClient
@@ -10,7 +9,7 @@ def _safe_json(resp):
     except Exception:
         return None
 
-
+#CASOS POSITIVOS Y NEGATIVOS
 # name,   auth,   params,                  expected,      tolerated
 CASES = [
     ("ok-200",     True,  {"skip": 0,  "limit": 10},  (200,),       (500,)),   # si hoy cae 500, lo toleramos

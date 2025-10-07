@@ -1,19 +1,18 @@
-# tests/api_tests/aircrafts/test_update_aircraft.py
 import uuid
 import random
 import pytest
 from utils.api_helpers import ApiClient
 import config.settings as config
 
-# --------- payload builders ----------
+#Payload par crear un registro valido
 def payload_valido(current_body: dict | None = None) -> dict:
     return {
-        # tail_number puede cambiarse si la API lo permite; si prefieres mantener, usa current_body["tail_number"]
         "tail_number": f"{random.randint(0, 99999):05d}",
         "model": f"MODEL-{uuid.uuid4().hex[:5].upper()}",
         "capacity": random.randint(1, 300),
     }
 
+#Payload par crear un registro no valido
 def payload_invalido_422(current_body: dict | None = None) -> dict:
     return {
         "tail_number": "",        # inválido
@@ -21,7 +20,7 @@ def payload_invalido_422(current_body: dict | None = None) -> dict:
         "capacity": -5,           # inválido
     }
 
-# --------- helpers ----------
+#crea el aircraft--
 def _create_aircraft(api_client: ApiClient) -> dict:
     payload = {
         "tail_number": f"{random.randint(0, 99999):05d}",
@@ -35,14 +34,13 @@ def _create_aircraft(api_client: ApiClient) -> dict:
     return body
 
 def _delete_if_exists(api_client: ApiClient, aircraft_id: str):
-    """Cleanup tolerante: intenta DELETE y no rompe la suite si falla."""
     try:
         d = api_client.delete(f"{config.AIRCRAFTS}/{aircraft_id}")
         assert d.status_code in (200, 204, 404, 405), f"Cleanup DELETE: {d.status_code} {d.text}"
     except Exception:
         pass
 
-# --------- casos ----------
+#CASOS POSITIVOS Y NEGATIVOS
 # name,          id_source,      builder,               expected_any
 CASES = [
     ("ok-auth UPDATE 200",       "create",     payload_valido,        (200, 204)),

@@ -1,15 +1,13 @@
 import random
-import string
 import pytest
 import config.settings as config
 from utils.api_helpers import ApiClient
-
-
 
 def _unique_tail() -> str:
     n = random.randint(0, 99999)
     return f"{n:05d}"
 
+#Crea temporal para tener q eliminar
 def _create_aircraft(api_client: ApiClient) -> dict:
     MAX_TRIES = 10
     last_status, last_text = None, None

@@ -1,4 +1,3 @@
-import uuid
 import pytest
 import config.settings as config
 from utils.api_helpers import ApiClient,VectorUtils
