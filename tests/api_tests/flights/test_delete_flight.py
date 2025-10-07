@@ -4,7 +4,6 @@ from datetime import datetime, timedelta
 from utils.api_helpers import ApiClient
 import config.settings as config
 
-# ---------- Helpers ----------
 def _iso_utc(dt: datetime) -> str:
     return dt.replace(microsecond=0).isoformat() + "Z"
 
@@ -44,7 +43,7 @@ def _warn_if_tolerated(name: str, got: int, preferred: tuple[int, ...], tolerate
     if got in tolerated_only:
         print(f"[{name}] Aviso: status {got} tolerado (backend inconsistente). Preferido: {preferred}")
 
-# ---------- Casos de prueba ----------
+#CASOS DE PRUEBA VALIDOS Y NO VALIDOS
 # name         auth   id_source   preferred         tolerated
 CASES = [
     ("DELETE ok-204", True,  "create",  (204, ),      ()),

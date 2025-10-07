@@ -1,4 +1,3 @@
-# tests/api_tests/booking/test_list_bookings.py
 import time
 import random
 import pytest
@@ -7,10 +6,6 @@ from config.settings import BOOKINGS  # BOOKINGS = "/bookings"
 
 # --- Helper: pequeño retry contra 5xx en lecturas ---
 def _get_with_retry(client: ApiClient, path: str, *, retries: int = 2, backoff: float = 0.6, **kw):
-    """
-    Reintenta GET ante 5xx (2 intentos adicionales con backoff exponencial).
-    Devuelve el último Response recibido.
-    """
     last = None
     for i in range(retries + 1):
         resp = client.get(path, **kw)
@@ -21,11 +16,12 @@ def _get_with_retry(client: ApiClient, path: str, *, retries: int = 2, backoff: 
             time.sleep(backoff * (2**i) + random.uniform(0, 0.2))
     return last
 
+#CASOS PROPUESTOS VALIDOS E INVALIDOS
 # name,           auth,   params,                             expected,   tolerated
 CASES = [
-    ("ok-default",  True,  {},                                 (200,),     ()),            # sin params
-    ("ok-limit-5",  True,  {"skip": 0, "limit": 5},            (200,),     ()),            # paginado normal
-    ("bad-limit-str",True, {"skip": 0, "limit": "x"},          (422,),     (400,)),        # tipo inválido
+    ("ok-default",  True,  {},                                 (200,),     ()),
+    ("ok-limit-5",  True,  {"skip": 0, "limit": 5},            (200,),     ()),
+    ("bad-limit-str",True, {"skip": 0, "limit": "x"},          (422,),     (400,)),
     ("unauth-401",  False, {"skip": 0, "limit": 3},            (401,),     ()),            # sin token
 ]
 IDS = [name for name, *_ in CASES]

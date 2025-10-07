@@ -2,7 +2,7 @@ import pytest
 from utils.api_helpers import ApiClient
 from config.settings import FLIGHTS
 
-# --- Escenarios de prueba ---
+#CASOS DE PRUEBA VALIDOS Y NO VALIDOS
 CASES = [
     # name,                     auth,   flight_id,           expected,  tolerated
     ("ok-caso positivo 200",    True,  "acf-b66848ae",  (200,), (404,)), ## SI YA NO EXISTE SE CAERA, POR ELLO LE PUSE 404

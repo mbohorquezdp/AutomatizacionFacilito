@@ -23,7 +23,7 @@ def _any_flight_and_aircraft(api_client: ApiClient, token: str):
         return fid, aid
     pytest.skip("No hay flights para probar UPDATE (semilla vacía).")
 
-# ---------- Casos 200 y 422 (estables) ----------
+#CASOS DE PRUEBA VALIDOS(200) Y NO VALIDOS(422)
 @pytest.mark.parametrize(
     "case_id, expected_status, payload",
     [
@@ -74,7 +74,7 @@ def test_update_flight_ok_and_422(api_client: ApiClient, admin_token: str, case_
         assert data.get("origin") == payload["origin"], "No se actualizó 'origin'."
         assert data.get("destination") == payload["destination"], "No se actualizó 'destination'."
 
-# ---------- Caso 401 (con detección y skip controlado) ----------
+#CASO CON 401 -- NO AUTORIZADO
 def test_update_flight_unauthorized(api_client: ApiClient, admin_token: str):
     flight_id, valid_aircraft_id = _any_flight_and_aircraft(api_client, admin_token)
     payload = {

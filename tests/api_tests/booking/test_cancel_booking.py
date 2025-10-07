@@ -1,14 +1,8 @@
-# tests/api_tests/booking/test_cancel_booking.py
 import pytest
 from utils.api_helpers import ApiClient
 from config.settings import BOOKINGS  # BOOKINGS = "/bookings"
 
-# ---------- Helpers ----------
 def _pick_existing_booking_id(api_client: ApiClient) -> str | None:
-    """
-    Intenta obtener un booking existente con GET /bookings?limit=1.
-    Si el endpoint no existe o no hay datos, retorna None.
-    """
     try:
         r = api_client.get(BOOKINGS, params={"skip": 0, "limit": 1})
     except Exception:
@@ -31,12 +25,12 @@ def _pick_existing_booking_id(api_client: ApiClient) -> str | None:
             return items[0].get("id")
     return None
 
-
+#CASOS POSITIVOS Y NO VALIDOS
 # name,        auth,   id_source,     preferred,          tolerated
 CASES = [
-    ("ok-delete",  True,  "existing",  (201, 200, 204),    (404,)),        # 404 tolerado por carrera / data mutable
-    ("unauth-401", False, "existing",  (401,),             ()),            # sin token → 401
-    ("invalid-422",True,  "invalid",   (422,),             (400, 404, 204))# backends a veces no devuelven 422
+    ("ok-delete",  True,  "existing",  (201, 200, 204),    (404,)),
+    ("unauth-401", False, "existing",  (401,),             ()),
+    ("invalid-422",True,  "invalid",   (422,),             (400, 404, 204))
 ]
 IDS = [name for name, *_ in CASES]
 
@@ -63,7 +57,7 @@ def test_delete_booking_validations(api_client: ApiClient, admin_token: str,
     resp = client.delete(f"{BOOKINGS}/{target_id}")
     status = resp.status_code
 
-    # Aserción principal (preferido/tolerado)
+    # Aserción
     if status in preferred:
         pass
     elif status in tolerated:

@@ -2,14 +2,13 @@ import pytest
 import config.settings as config
 from utils.api_helpers import ApiClient
 
-
 def _safe_json(resp):
     try:
         return resp.json()
     except Exception:
         return None
 
-
+#CASOS DE PRUEBA VALIDOS Y NO VALIDOS
 # name,   auth,   params,                  expected,      tolerated
 CASES = [
     ("ok-Serach 200",     True,  {"skip": 0,  "limit": 10},  (200,),       (500,)),   # si hoy cae 500, lo toleramos
@@ -50,10 +49,8 @@ def test_list_flights(api_client: ApiClient, admin_token: str,
                     assert sample[fld] or sample[fld] == 0, f"[{name}] Campo '{fld}' vacío en item: {sample}"
 
     elif status == 422:
-        # FastAPI suele devolver: {"detail": [ { "loc": [...], "msg": "...", "type": "..." } ]}
         assert isinstance(body, dict) and "detail" in body, f"[{name}] 422 sin 'detail': {resp.text}"
         assert isinstance(body["detail"], list), f"[{name}] 422 'detail' no es lista: {body}"
 
     elif status == 500:
-        # No validamos estructura; solo registramos y seguimos (es tolerado)
         print(f"[{name}] Backend 500 tolerado. Response: {resp.text[:300]}")

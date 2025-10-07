@@ -20,7 +20,6 @@ class TestCreateFlights:
         payload = flights_utils.build_payload(case)
 
         # 2) Normalizar expectativas del vector (soporta "expected_status", "expected_status_any"
-        #    o "Resultado esperado XXX": XXX)
         expected, expected_any = flights_utils.normalize_expected(case)
 
         # 3) Elegir cliente (con/sin auth) según el caso
@@ -54,7 +53,6 @@ class TestCreateFlights:
             # Cleanup opcional
             if case.get("cleanup"):
                 d = client.delete(f"{config.FLIGHTS}/{flight_id}")
-                # Muchos backends devuelven 204 al borrar; acepta 200 por flexibilidad
                 assert d.status_code in (204, 200), (
                     f"[{case_id}] DELETE esperaba 204/200, recibido {d.status_code}: {d.text}"
                 )

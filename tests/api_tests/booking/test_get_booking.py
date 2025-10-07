@@ -1,16 +1,15 @@
-# tests/api_tests/booking/test_get_booking.py
 import pytest
 from utils.api_helpers import ApiClient
 from config.settings import BOOKINGS  # asegúrate: BOOKINGS = "/bookings"
 
+#CASOS PROPUESTOS POSITIVOS Y NEGATIVOS ( AQUI APLICA TOLERANCIA A 500)
 # name,                    auth,   booking_id,    expected,     tolerated
 CASES = [
-    ("ok-200",              True,   "bkg-6c5061f3",          (200,),       (404,500,)),    # si da un error 500
-    ("booking-invalido",    True,   "not-valid",   (422,),       (400, 404)),# algunos backends devuelven 400/404
-    ("unauth-401",          False,  "44",          (401,),       ()),        # sin token → 401
+    ("ok-200",              True,   "bkg-6c5061f3",          (200,),       (404,500,)),
+    ("booking-invalido",    True,   "not-valid",   (422,),       (400, 404)),
+    ("unauth-401",          False,  "44",          (401,),       ()),
 ]
 IDS = [name for name, *_ in CASES]
-
 
 @pytest.mark.parametrize("name,auth,booking_id,expected,tolerated", CASES, ids=IDS)
 def test_get_booking_variantes(api_client: ApiClient, admin_token: str,
@@ -53,7 +52,6 @@ def test_get_booking_variantes(api_client: ApiClient, admin_token: str,
     elif status == 404:
         print(f"[{name}] Booking '{booking_id}' no encontrado (404).")
     elif status == 401:
-        # algunos backends devuelven {"detail":"Not authenticated"}
         try:
             body = resp.json()
             if isinstance(body, dict) and "detail" in body:
