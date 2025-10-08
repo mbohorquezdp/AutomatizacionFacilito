@@ -1,10 +1,8 @@
 # PRUEBA DE VISUALIZACIÓN DE DETALLE DE PRODUCTO EN LA WEB
 
 from time import sleep
-from pages.categorias_page_ui import CategoryPage
-from pages.productos_electronicos_page import Productselectronics
-
-
+from pages.categorias_ui_page import CategoryPage
+from pages.productos_electronicos_ui_page import Productselectronics
 
 def test_detalle_prod(driver):
     # con la siguiente línea se verá
