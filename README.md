@@ -2,7 +2,7 @@
 # URL: ShopHub - Web App: https://shophub-commerce.vercel.app/
 # Y pruebas de APIs para Airline
 # URL: https://cf-automation-airline-api.onrender.com/
-#
+# URL: https://drive.google.com/drive/folders/1sOyk3EgNAnPsOYfvd5lWlWXUu9Lz5uDI?usp=sharing ( VIDEO EXPLICATIVO )
 # Se considera para este proyecto:
 - Automatización de pruebas UI con Selenium WebDriver.
 - Automatización de pruebas APIs con Selenium WebDriver.
