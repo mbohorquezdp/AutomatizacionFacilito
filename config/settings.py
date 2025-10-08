@@ -19,7 +19,7 @@ ADMIN_PASS_API = _getenv("ADMIN_PASS_API")
 BASE_URL_API = BASE_URL_API.rstrip("/")
 
 # Endpoints (sin slash inicial)
-AUTH_LOGIN = "auth/login"      # si tu API exige slash final, probaremos fallback
+AUTH_LOGIN = "auth/login"
 USERS      = "users"
 USERS_ME   = "users/me"
 AIRPORTS   = "airports"
