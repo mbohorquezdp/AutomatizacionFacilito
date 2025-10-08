@@ -8,9 +8,6 @@ users_utils = VectorUtils(allowed_fields={"email", "password", "full_name", "rol
 
 CASE_IDS = [c.get("id", f"case-{i}") for i, c in enumerate(USUARIOS)]
 
-def _unique_email(prefix="ok"):
-    return f"{prefix}_{uuid.uuid4().hex[:8]}@test.com"
-
 class TestCreateUsers:
     @pytest.mark.parametrize("case", USUARIOS, ids=CASE_IDS)
     def test_create_users_from_vector(self, api_client: ApiClient, admin_token: str, case: dict):
@@ -21,6 +18,8 @@ class TestCreateUsers:
 
         # 2) Normalizar expectativas del vector
         expected, expected_any = users_utils.normalize_expected(case)
+
+
 
         # 3) Ejecutar POST
         api_client = api_client if case.get("auth", True) else ApiClient()
